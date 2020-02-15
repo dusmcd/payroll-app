@@ -1,3 +1,8 @@
+const { Associate, User } = require('./models');
+const db = require('./db');
+
 module.exports = {
-  db: require('./db'),
+  db,
+  Associate,
+  User,
 };
