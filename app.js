@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const expressHbars = require('express-handlebars');
+const { db } = require('./db');
 
 app.engine('handlebars', expressHbars());
 app.set('view engine', 'handlebars');
@@ -14,7 +15,10 @@ app.get('/', (req, res, next) => {
   res.render('home', { name: 'Dustin' });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
-});
+(async function() {
+  await db.sync();
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`listening on port ${PORT}`);
+  });
+})();
