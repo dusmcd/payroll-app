@@ -1,0 +1,50 @@
+<form class="ui form" action="/associates" method="POST">
+  <div class="two fields">
+    <div class="field">
+      <label>First Name</label>
+      <input type="text" name="firstName" placeholder="First Name" />
+    </div>
+    <div class="field">
+      <label>Last Name</label>
+      <input type="text" name="lastName" placeholder="Last Name" />
+    </div>
+  </div>
+  <div class="field">
+    <label>Email</label>
+    <input type="text" name="email" placeholder="Email" />
+  </div>
+  <div class="two fields">
+    <div class="field">
+      <label>Pay Rate</label>
+      <input type="number" name="rate" />
+    </div>
+    <div class="field">
+      <div class="ui checkbox">
+        <input type="checkbox" name="isHourly">
+        <label>Hourly</label>
+      </div>
+    </div>
+  </div>
+  <div class="two fields">
+    <div class="field">
+      <label>Social Security Number</label>
+      <input type="text" name="ssn" placeholder="XXX-XX-XXXX" />
+    </div>
+    <div class="field">
+      <label>Type (e.g., employee, contractor, etc.)</label>
+      <div class="ui selection dropdown">
+        <input type="hidden" name="type">
+        <i class="dropdown icon"></i>
+        <div class="default text">Select Type</div>
+        <div class="menu">
+          <div class="item" data-value="employee">Employee</div>
+          <div class="item" data-value="contractor">Contractor</div>
+          <div class="item" data-value="owner">Owner</div>
+          <div class="item" data-value="other">Other</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="ui primary button" type="submit">{{action}}</button>
+</form>
+</section>
