@@ -61,19 +61,7 @@
       <input type="text" name="city" placeholder="City" value="{{associate.dataValues.city}}" />
     </div>
     <div class="field">
-      <label>State</label>
-      <div class="ui selection dropdown">
-        <input type="hidden" name="state" value="{{associate.dataValues.state}}" />
-        <i class="dropdown icon"></i>
-        <div class="default text">Select State</div>
-        <div class="menu">
-          {{#each states}}
-          <div class="item" data-value="{{this.dataValues.stateAbbreviation}}">
-            {{this.dataValues.name}}
-          </div>
-          {{/each}}
-        </div>
-      </div>
+      {{>_state}}
     </div>
   </div>
   <div class="field">

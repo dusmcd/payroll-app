@@ -31,6 +31,7 @@ Associate.hasMany(Disbursement);
 Tax.belongsToMany(Disbursement, { through: 'taxesPayable' });
 Disbursement.belongsToMany(Tax, { through: 'taxesPayable' });
 State.hasOne(Tax);
+Company.hasMany(User);
 
 module.exports = {
   Associate,

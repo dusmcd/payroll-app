@@ -4,8 +4,8 @@ const Sequelize = require('sequelize');
 const User = db.define('user', {
   password: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
-      isNull: false,
       notEmpty: true,
     },
     set(val) {
@@ -15,6 +15,13 @@ const User = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     default: false,
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      isEmail: true,
+    },
   },
 });
 

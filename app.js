@@ -3,16 +3,46 @@ const app = express();
 const bodyParser = require('body-parser');
 const expressHbars = require('express-handlebars');
 const volleyball = require('volleyball');
-const { db } = require('./db');
+const { db, User } = require('./db');
+const passport = require('passport');
+const session = require('express-session');
 
+if (process.env.NODE_ENV !== 'production') {
+  require('./secrets');
+}
+
+// view engine
 app.engine('handlebars', expressHbars());
 app.set('view engine', 'handlebars');
 
+// common middleware
 app.use(require('method-override')('_method'));
 app.use(volleyball);
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ extended: false }));
+
+// sessions and passport
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: true,
+    resave: false,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findByPk(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
 
 app.get('/', (req, res, next) => {
   try {
