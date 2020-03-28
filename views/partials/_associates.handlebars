@@ -1,22 +1,23 @@
-<form class="ui form" action="/associates" method="POST">
+<form class="ui form" action="{{url}}" method="POST">
+  <h2>Personal Info</h2>
   <div class="two fields">
     <div class="field">
       <label>First Name</label>
-      <input type="text" name="firstName" placeholder="First Name" />
+      <input type="text" name="firstName" placeholder="First Name" value="{{associate.dataValues.firstName}}" />
     </div>
     <div class="field">
       <label>Last Name</label>
-      <input type="text" name="lastName" placeholder="Last Name" />
+      <input type="text" name="lastName" placeholder="Last Name" value="{{associate.dataValues.lastName}}" />
     </div>
   </div>
   <div class="field">
     <label>Email</label>
-    <input type="text" name="email" placeholder="Email" />
+    <input type="text" name="email" placeholder="Email" value="{{associate.dataValues.email}}" />
   </div>
   <div class="two fields">
     <div class="field">
       <label>Pay Rate</label>
-      <input type="number" name="rate" />
+      <input type="number" name="rate" value="{{associate.dataValues.rate}}" />
     </div>
     <div class="field">
       <div class="ui checkbox">
@@ -31,9 +32,9 @@
       <input type="text" name="ssn" placeholder="XXX-XX-XXXX" />
     </div>
     <div class="field">
-      <label>Type (e.g., employee, contractor, etc.)</label>
+      <label>Type (e.g., employee, contractor)</label>
       <div class="ui selection dropdown">
-        <input type="hidden" name="type">
+        <input type="hidden" name="type" value="{{associate.dataValues.associateType}}">
         <i class="dropdown icon"></i>
         <div class="default text">Select Type</div>
         <div class="menu">
@@ -44,32 +45,40 @@
         </div>
       </div>
     </div>
+  </div>
+  <h2>Address Info</h2>
+  <div class="field">
+    <label>Address 1</label>
+    <input type="text" name="address1" placeholder="Address 1" value="{{associate.dataValues.address1}}" />
+  </div>
+  <div class="field">
+    <label>Address 2</label>
+    <input type="text" name="address2" placeholder="Address 2" value="{{associate.dataValues.address2}}" />
+  </div>
+  <div class="two fields">
     <div class="field">
-      <label>Address 1</label>
-      <input type="text" name="address1" placeholder="Address 1" />
+      <label>City</label>
+      <input type="text" name="city" placeholder="City" value="{{associate.dataValues.city}}" />
     </div>
     <div class="field">
-      <label>Address 2</label>
-      <input type="text" name="address2" placeholder="Address 2" />
-    </div>
-    <div class="two fields">
-      <div class="field">
-        <label>City</label>
-        <input type="text" name="city" placeholder="City" />
-      </div>
-      <div class="field">
-        <label>State</label>
-        <div class="ui selection dropdown">
-          <input type="hidden" name="state" />
-          <i class="dropdown icon"></i>
-          <div class="default text">City</div>
-          <div class="menu">
-
+      <label>State</label>
+      <div class="ui selection dropdown">
+        <input type="hidden" name="state" value="{{associate.dataValues.state}}" />
+        <i class="dropdown icon"></i>
+        <div class="default text">Select State</div>
+        <div class="menu">
+          {{#each states}}
+          <div class="item" data-value="{{this.dataValues.stateAbbreviation}}">
+            {{this.dataValues.name}}
           </div>
+          {{/each}}
         </div>
-
       </div>
     </div>
+  </div>
+  <div class="field">
+    <label>Zip Code</label>
+    <input type="text" name="zipcode" placeholder="Zip Code" value="{{associate.dataValues.zipcode}}" />
   </div>
   <button class="ui primary button" type="submit">{{action}}</button>
 </form>

@@ -4,15 +4,15 @@ const db = require('../db');
 const Associate = db.define('associate', {
   firstName: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
-      isNull: false,
       notEmpty: true,
     },
   },
   lastName: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
-      isNull: false,
       notEmpty: true,
     },
   },
@@ -25,8 +25,8 @@ const Associate = db.define('associate', {
   },
   address1: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
-      isNull: false,
       notEmpty: true,
     },
   },
@@ -35,23 +35,23 @@ const Associate = db.define('associate', {
   },
   city: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
-      isNull: false,
       notEmpty: true,
     },
   },
   state: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
-      isNull: false,
       notEmpty: true,
       isUppercase: true,
     },
   },
   zipcode: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
-      isNull: false,
       notEmpty: true,
     },
   },
@@ -67,15 +67,12 @@ const Associate = db.define('associate', {
   },
   isHourly: {
     type: Sequelize.BOOLEAN,
-    validate: {
-      isNull: false,
-      notEmpty: true,
-    },
+    default: false,
   },
   associateType: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
-      isNull: false,
       notEmpty: true,
     },
   },

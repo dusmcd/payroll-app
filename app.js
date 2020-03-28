@@ -8,6 +8,7 @@ const { db } = require('./db');
 app.engine('handlebars', expressHbars());
 app.set('view engine', 'handlebars');
 
+app.use(require('method-override')('_method'));
 app.use(volleyball);
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -15,7 +16,7 @@ app.use(bodyParser.json({ extended: false }));
 
 app.get('/', (req, res, next) => {
   try {
-    res.render('home', { name: 'Dustin' });
+    res.render('home');
   } catch (err) {
     next(err);
   }
@@ -29,7 +30,8 @@ app.use((err, req, res, next) => {
   }
   err.status = 500;
   res.status(500);
-  res.render('error', { message: err.message, status: err.status });
+  console.error(err.message);
+  res.render('error', { status: err.status });
 });
 
 app.use((req, res, next) => {
