@@ -2,17 +2,10 @@ const db = require('../db');
 const Sequelize = require('sequelize');
 
 const Tax = db.define('tax', {
-  jurisdiction: {
-    type: Sequelize.STRING,
-    validate: {
-      isNull: false,
-      notEmpty: true,
-    },
-  },
   taxType: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
-      isNull: false,
       notEmpty: true,
     },
   },

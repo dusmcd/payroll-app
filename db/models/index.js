@@ -3,6 +3,7 @@ const User = require('./user');
 const Company = require('./company');
 const Tax = require('./tax');
 const Disbursement = require('./disbursement');
+const State = require('./state');
 const Sequelize = require('sequelize');
 const db = require('../db');
 
@@ -29,6 +30,7 @@ Company.hasMany(Associate);
 Associate.hasMany(Disbursement);
 Tax.belongsToMany(Disbursement, { through: 'taxesPayable' });
 Disbursement.belongsToMany(Tax, { through: 'taxesPayable' });
+State.hasOne(Tax);
 
 module.exports = {
   Associate,
@@ -37,4 +39,5 @@ module.exports = {
   Tax,
   Disbursement,
   TaxesPayable,
+  State,
 };

@@ -23,12 +23,15 @@ const Associate = db.define('associate', {
       this.setDataValue('socialSecurityNumber', '######' + val + '######');
     },
   },
-  street: {
+  address1: {
     type: Sequelize.STRING,
     validate: {
       isNull: false,
       notEmpty: true,
     },
+  },
+  address2: {
+    type: Sequelize.STRING,
   },
   city: {
     type: Sequelize.STRING,

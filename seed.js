@@ -1,3 +1,5 @@
 const { db } = require('./db');
 
-db.sync({ force: true }).then(() => db.close());
+db.sync()
+  .then(() => db.close())
+  .catch(err => console.error(err.message));
