@@ -1,5 +1,7 @@
 const db = require('../db');
 const Sequelize = require('sequelize');
+const crypto = require('crypto');
+const encryptPassword = require('../../helper/encrypt');
 
 const User = db.define('user', {
   password: {
@@ -8,8 +10,12 @@ const User = db.define('user', {
     validate: {
       notEmpty: true,
     },
-    set(val) {
-      this.setDataValue('password', '######' + val + '######');
+  },
+  salt: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
     },
   },
   isAdmin: {
@@ -23,6 +29,12 @@ const User = db.define('user', {
       isEmail: true,
     },
   },
+});
+
+User.beforeCreate(user => {
+  const salt = crypto.randomBytes(32);
+  user.salt = salt.toString('hex');
+  user.password = encryptPassword(user.password, salt);
 });
 
 module.exports = User;

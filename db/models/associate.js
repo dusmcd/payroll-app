@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
+const encryptSSN = require('../../helper/encrypt');
+const crypto = require('crypto');
 
 const Associate = db.define('associate', {
   firstName: {
@@ -17,11 +19,14 @@ const Associate = db.define('associate', {
     },
   },
   socialSecurityNumber: {
-    // should not store in plain text!!
     type: Sequelize.STRING,
-    set(val) {
-      this.setDataValue('socialSecurityNumber', '######' + val + '######');
+    allowNull: false,
+    validate: {
+      notEmpty: true,
     },
+  },
+  salt: {
+    type: Sequelize.STRING,
   },
   address1: {
     type: Sequelize.STRING,
@@ -76,6 +81,15 @@ const Associate = db.define('associate', {
       notEmpty: true,
     },
   },
+});
+
+Associate.beforeCreate(associate => {
+  const salt = crypto.randomBytes(32);
+  associate.salt = salt.toString('hex');
+  associate.socialSecurityNumber = encryptSSN(
+    associate.socialSecurityNumber,
+    salt
+  );
 });
 
 module.exports = Associate;
