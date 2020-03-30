@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const getStates = require('../helper/states');
+const passport = require('passport');
+const { User } = require('../db');
 
 router.get('/signup', async (req, res, next) => {
   try {
@@ -10,12 +12,22 @@ router.get('/signup', async (req, res, next) => {
   }
 });
 
-router.post('/signup', (req, res, next) => {
-  res.json(req.body);
+router.post('/signup', async (req, res, next) => {
+  const newUser = await User.create(req.body);
+  req.login(newUser, err => (err ? next(err) : res.redirect('/')));
 });
 
 router.get('/login', (req, res, next) => {
   res.render('users/login');
 });
+
+router.post(
+  '/login',
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true,
+  })
+);
 
 module.exports = router;

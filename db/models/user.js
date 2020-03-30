@@ -37,4 +37,11 @@ User.beforeCreate(user => {
   user.password = encryptPassword(user.password, salt);
 });
 
+User.prototype.isValidPassword = function(password) {
+  if (this.password === encryptPassword(password, this.salt)) {
+    return true;
+  }
+  return false;
+};
+
 module.exports = User;

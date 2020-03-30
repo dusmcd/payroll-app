@@ -5,6 +5,7 @@ const expressHbars = require('express-handlebars');
 const volleyball = require('volleyball');
 const { db, User } = require('./db');
 const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 
 if (process.env.NODE_ENV !== 'production') {
@@ -43,6 +44,26 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
+passport.use(
+  new LocalStrategy({ usernameField: 'email' }, async function(
+    email,
+    password,
+    done
+  ) {
+    try {
+      const user = await User.findOne({ email: email });
+      if (!user) {
+        return done(null, false, { message: 'Incorrect Email/Password' });
+      }
+      if (!user.isValidPassword(password)) {
+        return done(null, false, { message: 'Incorrect Email/Password' });
+      }
+      return done(null, user);
+    } catch (err) {
+      done(err);
+    }
+  })
+);
 
 app.get('/', (req, res, next) => {
   try {
