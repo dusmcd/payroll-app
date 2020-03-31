@@ -28,13 +28,14 @@ const User = db.define('user', {
 });
 
 User.beforeCreate(user => {
-  const salt = crypto.randomBytes(32);
-  user.salt = salt.toString('hex');
+  const salt = crypto.randomBytes(32).toString('hex');
+  user.salt = salt;
   user.password = encryptPassword(user.password, salt);
 });
 
 User.prototype.isValidPassword = function(password) {
-  if (this.password === encryptPassword(password, this.salt)) {
+  const salt = Buffer.from(this.salt);
+  if (this.password === encryptPassword(password, salt)) {
     return true;
   }
   return false;

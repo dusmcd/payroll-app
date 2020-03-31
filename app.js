@@ -52,7 +52,7 @@ passport.use(
     done
   ) {
     try {
-      const user = await User.findOne({ email: email });
+      const user = await User.findOne({ where: { email: email } });
       if (!user) {
         return done(null, false, { message: 'Incorrect Email/Password' });
       }
