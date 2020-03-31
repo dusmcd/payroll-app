@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const expressHbars = require('express-handlebars');
+const Handlebars = require('handlebars');
 const volleyball = require('volleyball');
 const { db, User } = require('./db');
 const passport = require('passport');
@@ -64,6 +65,15 @@ passport.use(
     }
   })
 );
+
+/*
+  handlebars customer helpers
+  available in all templates
+*/
+app.use((req, res, next) => {
+  app.locals.user = req.user;
+  return next();
+});
 
 app.get('/', (req, res, next) => {
   try {

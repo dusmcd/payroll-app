@@ -13,10 +13,6 @@ const User = db.define('user', {
   },
   salt: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
