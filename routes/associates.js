@@ -1,16 +1,10 @@
 const router = require('express').Router();
-const { State, Associate } = require('../db/models');
-const Op = require('sequelize').Op;
+const { Associate } = require('../db/models');
+const getStates = require('../helper/states');
 
 router.get('/new', async (req, res, next) => {
   try {
-    const states = await State.findAll({
-      where: {
-        name: {
-          [Op.ne]: 'Federal',
-        },
-      },
-    });
+    const states = await getStates();
     res.render('associates/new', {
       action: 'Submit',
       states,
@@ -57,13 +51,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.get('/edit/:id', async (req, res, next) => {
   try {
-    const states = await State.findAll({
-      where: {
-        name: {
-          [Op.ne]: 'Federal',
-        },
-      },
-    });
+    const states = await getStates();
     const associate = await Associate.findByPk(req.params.id);
     res.render('associates/edit', {
       action: 'Save Changes',

@@ -1,0 +1,46 @@
+<div class="ui container">
+  <h1>Sign Up for MyPayroll!</h1>
+  <form class="ui form" action="/auth/signup" method="POST">
+    <h2>User Info</h2>
+    <div class="field">
+      <label>Email</label>
+      <input type="text" name="email" placeholder="Email" />
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Password" />
+    </div>
+    <div class="field">
+      <label>Re-enter Password</label>
+      <input type="password" placeholder="Re-enter Password" />
+    </div>
+
+    <h2>Company Info</h2>
+    <div class="field">
+      <label>Business Name</label>
+      <input type="text" name="name" placeholder="Business Name" />
+    </div>
+    <div class="field">
+      <label>EIN (Employer Identification Number)</label>
+      <input type="text" name="ein" placeholder="XX-XXXXXXX" />
+    </div>
+    <div class="field">
+      <label>Address</label>
+      <input type="text" name="address" placeholder="Address" />
+    </div>
+    <div class="two fields">
+      <div class="field">
+        <label>City</label>
+        <input type="text" name="city" placeholder="City" />
+      </div>
+      <div class="field">
+        {{>_state}}
+      </div>
+    </div>
+    <div class="field">
+      <label>Zipcode</label>
+      <input type="text" name="zipcode" placeholder="Zipcode" />
+    </div>
+    <button type="submit" class="ui primary button">Sign Up</button>
+  </form>
+</div>

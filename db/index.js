@@ -1,4 +1,4 @@
-const { Associate, User, State } = require('./models');
+const { Associate, User, State, Company } = require('./models');
 const db = require('./db');
 
 module.exports = {
@@ -6,4 +6,5 @@ module.exports = {
   Associate,
   User,
   State,
+  Company,
 };
